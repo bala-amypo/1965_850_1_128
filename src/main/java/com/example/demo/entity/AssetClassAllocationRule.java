@@ -62,35 +62,27 @@ public class InvestorProfile {
         this.investorId = investorId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getassetClass() {
+        return  assetClass;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setassetClass( Enum:AssetClassType assetClass) {
+        this.assetClass = assetClass;
     }
 
-    public String getEmail() {
-        return email;
+    public Double gettargetPercentage() {
+        return targetPercentage;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void settargetPercentage(Double targetPercentage) {
+        this.targetPercentage = targetPercentage;
     }
 
-    public Boolean getActive() {
+    public Boolean getactive() {
         return active;
     }
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }
