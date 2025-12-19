@@ -23,21 +23,21 @@ public class LoadSheddingEvent {
         this.id= id;
     }
     public String getinvestorId() {
-        return investorI;
+        return investorId;
     }
-    public void setzone(String zone) {
-        this.zone = zone;
+    public void setinvestorId(String investorId) {
+        this.investorId = investorId;
     }
-    public Timestamp geteventStart() {
-       return eventStart ;
+    public String getfullName() {
+       return fullName ;
     }
-    public void seteventStart(Timestamp eventStart) {
-        this.eventStart= eventStart;
+    public void setfullName(String fullName) {
+        this.fullName= fullName;
     }
-    public Timestamp geteventEnd() {
-        return eventEnd;
+    public String getemail() {
+        return email;
     }
-    public void seteventEnd(Timestamp eventEnd) {
+    public void setemail() {
         this.eventEnd= eventEnd;
     }
     public String getreason() {
