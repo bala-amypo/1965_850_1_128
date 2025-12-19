@@ -4,15 +4,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import java.security.Timestamp;
+import jakarta.persistence.column;
 @Entity 
-public class LoadSheddingEvent {
+public class InvestorProfile {
     @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
    
     private String investorId;
     private String fullName;
-
+    @Column(unique=true)
     private String email;
     private Boolean active;
     private LocalDateTime createdAt;
@@ -54,17 +55,17 @@ public class LoadSheddingEvent {
     }
 
     
-    public ( Long id, String investorId , String fullName , String email , Boolean active , LocalDateTime createdAt ){
+    public InvestorProfile ( Long id, String investorId , String fullName , String email , Boolean active , LocalDateTime createdAt ){
         this.id = id;
         this.investorId= investorId;
         this.fullName = fullName ;
         this.email = email;
-        this. = reason;
-        this.triggeredByForecastId=triggeredByForecastId;
-        this.zone=zone;
+        this.active = active;
+        this.createdAt=createdAt;
+        
     }
 
-    public LoadSheddingEvent(){
+    public InvestorProfile(){
     }
 
 }
