@@ -5,37 +5,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-
-import java.time.LocalDateTime;
-
 @Entity
-public class InvestorProfile {
+public class AssetClassAllocationRule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long investorId;
-    private Enum:AssetClassType assetClass;
+    private AssetClassType assetClass;
 
-    
     private Double targetPercentage;
 
     private Boolean active;
 
-
-
-    // Required by JPA
-    public InvestorProfile() {
+    // Default constructor for JPA
+    public AssetClassAllocationRule() {
     }
 
-    public InvestorProfile(
+    public AssetClassAllocationRule(
             Long id,
             Long investorId,
-            Enum:AssetClassType assetClass,
+            AssetClassType assetClass,
             Double targetPercentage,
-            Boolean active,
-            
+            Boolean active
     ) {
         this.id = id;
         this.investorId = investorId;
@@ -44,7 +37,7 @@ public class InvestorProfile {
         this.active = active;
     }
 
-    // Getters & Setters (standard naming)
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -54,31 +47,31 @@ public class InvestorProfile {
         this.id = id;
     }
 
-    public String getInvestorId() {
+    public Long getInvestorId() {
         return investorId;
     }
 
-    public void setInvestorId(String investorId) {
+    public void setInvestorId(Long investorId) {
         this.investorId = investorId;
     }
 
-    public String getassetClass() {
-        return  assetClass;
+    public AssetClassType getassetClass() {
+        return assetClass;
     }
 
-    public void setassetClass( Enum:AssetClassType assetClass) {
+    public void setassetClass(AssetClassType assetClass) {
         this.assetClass = assetClass;
     }
 
-    public Double gettargetPercentage() {
+    public Double getTargetPercentage() {
         return targetPercentage;
     }
 
-    public void settargetPercentage(Double targetPercentage) {
+    public void setTargetPercentage(Double targetPercentage) {
         this.targetPercentage = targetPercentage;
     }
 
-    public Boolean getactive() {
+    public Boolean getActive() {
         return active;
     }
 
