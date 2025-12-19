@@ -12,18 +12,18 @@ public class LoadSheddingEvent {
    
     private String investorId;
     private String fullName;
-    private String ;
-    private Timestamp eventEnd;
-    private long triggeredByForecastId;
-    private Double expectedDemandReductionMW;
+
+    private String email;
+    private Boolean active;
+    private LocalDateTime createdAt;
     public long getId() {
       return id;
     }
     public void setId(int id) {
         this.id= id;
     }
-    public String getzone() {
-        return zone;
+    public String getinvestorId() {
+        return investorI;
     }
     public void setzone(String zone) {
         this.zone = zone;
