@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
+
 
 import java.time.LocalDateTime;
 
@@ -16,14 +16,14 @@ public class InvestorProfile {
     private Long id;
 
     private Long investorId;
-    private Enum: fullName;
+    private Enum:AssetClassType assetClass;
 
-    @Column(unique = true)
-    private String email;
+    
+    private Double targetPercentage;
 
     private Boolean active;
 
-    private LocalDateTime createdAt;
+
 
     // Required by JPA
     public InvestorProfile() {
@@ -31,18 +31,17 @@ public class InvestorProfile {
 
     public InvestorProfile(
             Long id,
-            String investorId,
-            String fullName,
-            String email,
+            Long investorId,
+            Enum:AssetClassType assetClass,
+            Double targetPercentage,
             Boolean active,
-            LocalDateTime createdAt
+            
     ) {
         this.id = id;
         this.investorId = investorId;
-        this.fullName = fullName;
-        this.email = email;
+        this.assetClass = assetClass;
+        this.targetPercentage = targetPercentage;
         this.active = active;
-        this.createdAt = createdAt;
     }
 
     // Getters & Setters (standard naming)
