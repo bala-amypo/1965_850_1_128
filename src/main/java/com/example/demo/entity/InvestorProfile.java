@@ -49,23 +49,17 @@ public class LoadSheddingEvent {
     public LocalDateTime createdAt() {
      return createdAt;
     }
-    public void setcreatedAt(LocalDateTime  ) {
-        this.triggeredByForecastId= triggeredByForecastId;
-    }
-    public Double getexpectedDemandReductionMW() {
-     return expectedDemandReductionMW;
-    }
-    public void setexpectedDemandReductionMW(Double expectedDemandReductionMW) {
-        this.expectedDemandReductionMW= expectedDemandReductionMW;
+    public void setcreatedAt(LocalDateTime createdAt ) {
+        this.createdAt= createdAt;
     }
 
     
-    public LoadSheddingEvent( long id,Double expectedDemandReductionMW ,Timestamp eventStart,Timestamp eventEnd, String zone, String reason, Long triggeredByForecastId ){
+    public ( Long id, String investorId , String fullName , String email , Boolean active , LocalDateTime createdAt ){
         this.id = id;
-        this.expectedDemandReductionMW= expectedDemandReductionMW;
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
-        this.reason = reason;
+        this.investorId= investorId;
+        this.fullName = fullName ;
+        this.email = email;
+        this. = reason;
         this.triggeredByForecastId=triggeredByForecastId;
         this.zone=zone;
     }
