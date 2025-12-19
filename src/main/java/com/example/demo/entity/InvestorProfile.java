@@ -37,19 +37,19 @@ public class LoadSheddingEvent {
     public String getemail() {
         return email;
     }
-    public void setemail() {
-        this.eventEnd= eventEnd;
+    public void setemail(String email) {
+        this.email= email;
     }
-    public String getreason() {
-     return reason;
+    public Boolean getactive() {
+     return active;
     }
-    public void setreason(Timestamp reason) {
-        this.reason= reason;
+    public void setactive(Boolean active) {
+        this.active= active;
     }
-    public Long gettriggeredByForecastId() {
-     return triggeredByForecastId;
+    public LocalDateTime createdAt() {
+     return createdAt;
     }
-    public void settriggeredByForecastId(Long triggeredByForecastId) {
+    public void setcreatedAt(LocalDateTime  ) {
         this.triggeredByForecastId= triggeredByForecastId;
     }
     public Double getexpectedDemandReductionMW() {
