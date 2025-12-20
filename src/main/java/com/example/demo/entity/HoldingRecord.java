@@ -4,7 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 import java.time.LocalDateTime;
 
@@ -16,29 +17,33 @@ public class HoldingRecord {
     private Long id;
 
     private Long investorId;
-    private LocalDateTime snapshotDate;
+
+    @Enumerated(EnumType.STRING)
+    private AssetClass assetClass;
+
+    private Double quantity;
     private Double currentValue;
-    private assetclass AssetClassType;
+
+    private LocalDateTime createdAt;
 
     public HoldingRecord() {
     }
 
-    public HoldingRecord(
-            Long id,
-            Long investorId,
-            assetClass AssetClassType,
-            Double currentValue,
-            LocalDateTime snapshotDate
-    ) {
+    public HoldingRecord(Long id,
+                         Long investorId,
+                         AssetClass assetClass,
+                         Double quantity,
+                         Double currentValue,
+                         LocalDateTime createdAt) {
         this.id = id;
         this.investorId = investorId;
-        this.AssetClassType = AssetClassType;
+        this.assetClass = assetClass;
+        this.quantity = quantity;
         this.currentValue = currentValue;
-        this.snapshotDate = snapshotDate;
-        
+        this.createdAt = createdAt;
     }
 
-    // Getters & Setters (standard naming)
+    // Getters & Setters
 
     public Long getId() {
         return id;
@@ -56,28 +61,35 @@ public class HoldingRecord {
         this.investorId = investorId;
     }
 
-    public assetclass getAssetClassType() {
-        return AssetClassType;
+    public AssetClass getAssetClass() {
+        return assetClass;
     }
 
-    public void setAssetClassType(  assetclass AssetClassType) {
-        this.AssetClassType = AssetClassType;
+    public void setAssetClass(AssetClass assetClass) {
+        this.assetClass = assetClass;
     }
 
-    public Double getcurrentValue() {
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getCurrentValue() {
         return currentValue;
     }
 
-    public void setcurrentValue(Double currentValue) {
+    public void setCurrentValue(Double currentValue) {
         this.currentValue = currentValue;
     }
 
-    public LocalDateTime getsnapshotDate() {
-        return snapshotDate;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setsnapshotDate(LocalDateTime snapshotDate) {
-        this.snapshotDate = snapshotDate;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
-
 }
