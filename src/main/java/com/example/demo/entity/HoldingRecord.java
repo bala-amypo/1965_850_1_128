@@ -25,7 +25,7 @@ public class InvestorProfile {
 
     public InvestorProfile(
             Long id,
-            String investorId,
+            Long investorId,
             String fullName,
             String email,
             Boolean active,
