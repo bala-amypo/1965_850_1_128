@@ -17,16 +17,9 @@ public class InvestorProfile {
 
     private Long investorId;
     private LocalDateTime snapshotDate;
-    private ;
+    private Double totalPortfolioValue;
+    private String allocationJson;
 
-    @Column(unique = true)
-    private String email;
-
-    private Boolean active;
-
-    private LocalDateTime createdAt;
-
-    // Required by JPA
     public InvestorProfile() {
     }
 
