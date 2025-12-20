@@ -1,0 +1,97 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+
+import java.time.LocalDateTime;
+
+@Entity
+public class InvestorProfile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long investorId;
+    private String fullName;
+
+    @Column(unique = true)
+    private String email;
+
+    private Boolean active;
+
+    private LocalDateTime createdAt;
+
+    // Required by JPA
+    public InvestorProfile() {
+    }
+
+    public InvestorProfile(
+            Long id,
+            String investorId,
+            String fullName,
+            String email,
+            Boolean active,
+            LocalDateTime createdAt
+    ) {
+        this.id = id;
+        this.investorId = investorId;
+        this.fullName = fullName;
+        this.email = email;
+        this.active = active;
+        this.createdAt = createdAt;
+    }
+
+    // Getters & Setters (standard naming)
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getInvestorId() {
+        return investorId;
+    }
+
+    public void setInvestorId(String investorId) {
+        this.investorId = investorId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+}
