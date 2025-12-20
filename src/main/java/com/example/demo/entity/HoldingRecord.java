@@ -18,7 +18,7 @@ public class InvestorProfile {
     private Long investorId;
     private LocalDateTime snapshotDate;
     private Double currentValue;
-    private String allocationJson;
+    private assetclass AssetClassType;
 
     public InvestorProfile() {
     }
@@ -26,10 +26,9 @@ public class InvestorProfile {
     public InvestorProfile(
             Long id,
             Long investorId,
-             assetClass AssetClassType,
-            String email,
-            Boolean active,
-            LocalDateTime createdAt
+            assetClass AssetClassType,
+            Double currentValue,
+            
     ) {
         this.id = id;
         this.investorId = investorId;
