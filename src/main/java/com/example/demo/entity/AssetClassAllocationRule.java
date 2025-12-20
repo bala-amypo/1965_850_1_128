@@ -19,7 +19,7 @@ public class AssetClassAllocationRule {
 
     private Boolean active;
 
-    // Default constructor for JPA
+
     public AssetClassAllocationRule() {
     }
 
@@ -37,7 +37,7 @@ public class AssetClassAllocationRule {
         this.active = active;
     }
 
-    // Getters and setters
+    
 
     public Long getId() {
         return id;
