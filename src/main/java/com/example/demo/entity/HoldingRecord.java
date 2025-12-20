@@ -9,7 +9,7 @@ import jakarta.persistence.Column;
 import java.time.LocalDateTime;
 
 @Entity
-public class InvestorProfile {
+public class HoldingRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,10 @@ public class InvestorProfile {
     private Double currentValue;
     private assetclass AssetClassType;
 
-    public InvestorProfile() {
+    public HoldingRecord() {
     }
 
-    public InvestorProfile(
+    public HoldingRecord(
             Long id,
             Long investorId,
             assetClass AssetClassType,
