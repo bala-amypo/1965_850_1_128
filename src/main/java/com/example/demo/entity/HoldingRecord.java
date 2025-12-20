@@ -28,14 +28,14 @@ public class InvestorProfile {
             Long investorId,
             assetClass AssetClassType,
             Double currentValue,
-            
+            LocalDateTime snapshotDate
     ) {
         this.id = id;
         this.investorId = investorId;
-        this.fullName = fullName;
-        this.email = email;
-        this.active = active;
-        this.createdAt = createdAt;
+        this.AssetClassType = AssetClassType;
+        this.currentValue = currentValue;
+        this.snapshotDate = snapshotDate;
+        
     }
 
     // Getters & Setters (standard naming)
@@ -48,23 +48,23 @@ public class InvestorProfile {
         this.id = id;
     }
 
-    public String getInvestorId() {
+    public Long getInvestorId() {
         return investorId;
     }
 
-    public void setInvestorId(String investorId) {
+    public void setInvestorId(Long investorId) {
         this.investorId = investorId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public assetclass getAssetClassType() {
+        return AssetClassType;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setAssetClassType(  assetclass AssetClassType) {
+        this.AssetClassType = AssetClassType;
     }
 
-    public String getEmail() {
+    public Double get() {
         return email;
     }
 
