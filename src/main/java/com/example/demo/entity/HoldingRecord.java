@@ -17,7 +17,7 @@ public class InvestorProfile {
 
     private Long investorId;
     private LocalDateTime snapshotDate;
-    private Double totalPortfolioValue;
+    private Double currentValue;
     private String allocationJson;
 
     public InvestorProfile() {
@@ -26,7 +26,7 @@ public class InvestorProfile {
     public InvestorProfile(
             Long id,
             Long investorId,
-            String fullName,
+             assetClass AssetClassType,
             String email,
             Boolean active,
             LocalDateTime createdAt
