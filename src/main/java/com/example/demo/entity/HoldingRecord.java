@@ -16,7 +16,8 @@ public class InvestorProfile {
     private Long id;
 
     private Long investorId;
-    private LocalDateTime snap;
+    private LocalDateTime snapshotDate;
+    private ;
 
     @Column(unique = true)
     private String email;
