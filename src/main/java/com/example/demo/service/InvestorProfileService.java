@@ -7,11 +7,11 @@ public interface ZoneService {
 
     InvestorProfile createInvestor(InvestorProfile investor);
 
-    Zone updateZone(Long id, Zone zone);
+    InvestorProfile getInvestorById(Long id);
 
-    Zone getZoneById(Long id);
+    InvestorProfile findByInvestorId(String investorId);
 
-    List<Zone> getAllZones();
+    getAllInvestors(();
 
     void deactivateZone(Long id);
 }
