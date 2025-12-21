@@ -1,10 +1,15 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.HoldingRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.HoldingRecord;
+import java.util.List;
 
 @Repository
-public interface HoldingRecordRepository extends JpaRepository<HoldingRecord, Long> {
+public interface HoldingRecordRepository
+        extends JpaRepository<HoldingRecord, Long> {
+
+    // This REQUIRES field: private Long investorId;
+    List<HoldingRecord> findByInvestorId(Long investorId);
 }
