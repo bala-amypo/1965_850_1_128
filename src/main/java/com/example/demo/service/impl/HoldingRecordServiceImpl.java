@@ -22,7 +22,7 @@ public class HoldingRecordServiceImpl
     public HoldingRecord recordHolding(HoldingRecord holding) {
 
         // 🔴 FIXED: use existing field
-        if (holding.getHoldingValue() <= 0) {
+        if (holding.getValue() <= 0) {
             throw new IllegalArgumentException(
                     "Holding value must be greater than 0");
         }
