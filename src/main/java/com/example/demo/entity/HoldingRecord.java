@@ -1,56 +1,35 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-
-import java.time.LocalDateTime;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "holding_records")
 public class HoldingRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Used by findByInvestorId(...)
     private Long investorId;
 
-    @Enumerated(EnumType.STRING)
-    private AssetClass assetClass;
-
-    private Double quantity;
-    private Double currentValue;
-
-    private LocalDateTime createdAt;
+    // Used for validation (value > 0)
+    private double value;
 
     public HoldingRecord() {
     }
 
-    public HoldingRecord(Long id,
-                         Long investorId,
-                         AssetClass assetClass,
-                         Double quantity,
-                         Double currentValue,
-                         LocalDateTime createdAt) {
-        this.id = id;
+    public HoldingRecord(Long investorId, double value) {
         this.investorId = investorId;
-        this.assetClass = assetClass;
-        this.quantity = quantity;
-        this.currentValue = currentValue;
-        this.createdAt = createdAt;
+        this.value = value;
     }
-
-    // Getters & Setters
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getInvestorId() {
@@ -61,35 +40,12 @@ public class HoldingRecord {
         this.investorId = investorId;
     }
 
-    public AssetClass getAssetClass() {
-        return assetClass;
+    // 🔴 THIS is the getter your service expects
+    public double getValue() {
+        return value;
     }
 
-    public void setAssetClass(AssetClass assetClass) {
-        this.assetClass = assetClass;
-    }
-
-    public Double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(Double currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setValue(double value) {
+        this.value = value;
     }
 }
