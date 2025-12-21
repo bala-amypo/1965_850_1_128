@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 @Service
 public class AllocationSnapshotServiceImpl implements AllocationSnapshotService {
 
-    private final AllocationSnapshotRepository allocationRepo;
+    private final AllocationSnapshotRecordRepository allocationRepo;
     private final HoldingRecordService holdingService;
 
-    public AllocationSnapshotServiceImpl(AllocationSnapshotRepository allocationRepo,
+    public AllocationSnapshotServiceImpl(AllocationSnapshotRecordRepository allocationRepo,
                                          HoldingRecordService holdingService) {
         this.allocationRepo = allocationRepo;
         this.holdingService = holdingService;
