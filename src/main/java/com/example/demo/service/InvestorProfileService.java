@@ -11,7 +11,8 @@ public interface InvestorProfileService {
 
     InvestorProfile findByInvestorId(String investorId);
 
-    InvestorProfile getAllInvestors();
+    // 🔴 FIXED: return List
+    List<InvestorProfile> getAllInvestors();
 
-    InvestorProfile updateInvestorStatus(Long id,boolean active);
+    InvestorProfile updateInvestorStatus(Long id, boolean active);
 }
