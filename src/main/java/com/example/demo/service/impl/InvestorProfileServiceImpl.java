@@ -1,18 +1,20 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import com.example.demo.entity.InvestorProfile;
 import com.example.demo.repository.InvestorProfileRepository;
+import com.example.demo.service.InvestorProfileService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class InvestorProfileServiceImpl implements InvestorProfileService {
+public class InvestorProfileServiceImpl
+        implements InvestorProfileService {
 
     private final InvestorProfileRepository investorProfileRepository;
 
-    public InvestorProfileServiceImpl(InvestorProfileRepository investorProfileRepository) {
+    public InvestorProfileServiceImpl(
+            InvestorProfileRepository investorProfileRepository) {
         this.investorProfileRepository = investorProfileRepository;
     }
 
@@ -24,15 +26,18 @@ public class InvestorProfileServiceImpl implements InvestorProfileService {
     @Override
     public InvestorProfile getInvestorById(Long id) {
         return investorProfileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Investor not found with id: " + id));
+                .orElseThrow(() ->
+                        new RuntimeException("Investor not found with id: " + id));
     }
 
     @Override
     public InvestorProfile findByInvestorId(String investorId) {
         return investorProfileRepository.findByInvestorId(investorId)
-                .orElseThrow(() -> new RuntimeException("Investor not found with investorId: " + investorId));
+                .orElseThrow(() ->
+                        new RuntimeException("Investor not found with investorId: " + investorId));
     }
 
+    // 🔴 FIXED return type
     @Override
     public List<InvestorProfile> getAllInvestors() {
         return investorProfileRepository.findAll();
