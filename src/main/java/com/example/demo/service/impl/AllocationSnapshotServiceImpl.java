@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.entity.AllocationSnapshotRecord;
 import com.example.demo.entity.HoldingRecord;
-import com.example.demo.repository.AllocationSnapshotRepository;
+import com.example.demo.repository.AllocationSnapshotRecordRepository;
 import com.example.demo.service.HoldingRecordService;
 import com.example.demo.service.AllocationSnapshotService;
 
