@@ -1,32 +1,37 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "holding_records")
-public class HoldingRecord {
+@Table(name = "allocation_snapshot_records")
+public class AllocationSnapshotRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Used by findByInvestorId(...)
     private Long investorId;
 
-    // Used for validation (value > 0)
-    private double value;
+    private Double totalValue;
 
-    public HoldingRecord() {
+    private String allocationJson; // you can store JSON snapshot here
+
+    private LocalDateTime snapshotDateTime;
+
+    // ========= Constructors =========
+
+    public AllocationSnapshotRecord() {
     }
 
-    public HoldingRecord(Long investorId, double value) {
+    public AllocationSnapshotRecord(Long investorId, Double totalValue, String allocationJson, LocalDateTime snapshotDateTime) {
         this.investorId = investorId;
-        this.value = value;
+        this.totalValue = totalValue;
+        this.allocationJson = allocationJson;
+        this.snapshotDateTime = snapshotDateTime;
     }
+
+    // ========= Getter + Setter ==========
 
     public Long getId() {
         return id;
@@ -40,12 +45,27 @@ public class HoldingRecord {
         this.investorId = investorId;
     }
 
-    // 🔴 THIS is the getter your service expects
-    public double getValue() {
-        return value;
+    public Double getTotalValue() {
+        return totalValue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
+    }
+
+    public String getAllocationJson() {
+        return allocationJson;
+    }
+
+    public void setAllocationJson(String allocationJson) {
+        this.allocationJson = allocationJson;
+    }
+
+    public LocalDateTime getSnapshotDateTime() {
+        return snapshotDateTime;
+    }
+
+    public void setSnapshotDateTime(LocalDateTime snapshotDateTime) {
+        this.snapshotDateTime = snapshotDateTime;
     }
 }
