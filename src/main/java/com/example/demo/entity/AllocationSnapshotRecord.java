@@ -1,71 +1,71 @@
-package com.example.demo.entity;
+// package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+// import jakarta.persistence.*;
+// import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "allocation_snapshot_records")
-public class AllocationSnapshotRecord {
+// @Entity
+// @Table(name = "allocation_snapshot_records")
+// public class AllocationSnapshotRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
 
-    private Long investorId;
+//     private Long investorId;
 
-    private Double totalValue;
+//     private Double totalValue;
 
-    private String allocationJson; // you can store JSON snapshot here
+//     private String allocationJson; // you can store JSON snapshot here
 
-    private LocalDateTime snapshotDateTime;
+//     private LocalDateTime snapshotDateTime;
 
-    // ========= Constructors =========
+//     // ========= Constructors =========
 
-    public AllocationSnapshotRecord() {
-    }
+//     public AllocationSnapshotRecord() {
+//     }
 
-    public AllocationSnapshotRecord(Long investorId, Double totalValue, String allocationJson, LocalDateTime snapshotDateTime) {
-        this.investorId = investorId;
-        this.totalValue = totalValue;
-        this.allocationJson = allocationJson;
-        this.snapshotDateTime = snapshotDateTime;
-    }
+//     public AllocationSnapshotRecord(Long investorId, Double totalValue, String allocationJson, LocalDateTime snapshotDateTime) {
+//         this.investorId = investorId;
+//         this.totalValue = totalValue;
+//         this.allocationJson = allocationJson;
+//         this.snapshotDateTime = snapshotDateTime;
+//     }
 
-    // ========= Getter + Setter ==========
+//     // ========= Getter + Setter ==========
 
-    public Long getId() {
-        return id;
-    }
+//     public Long getId() {
+//         return id;
+//     }
 
-    public Long getInvestorId() {
-        return investorId;
-    }
+//     public Long getInvestorId() {
+//         return investorId;
+//     }
 
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
+//     public void setInvestorId(Long investorId) {
+//         this.investorId = investorId;
+//     }
 
-    public Double getTotalValue() {
-        return totalValue;
-    }
+//     public Double getTotalValue() {
+//         return totalValue;
+//     }
 
-    public void setTotalValue(Double totalValue) {
-        this.totalValue = totalValue;
-    }
+//     public void setTotalValue(Double totalValue) {
+//         this.totalValue = totalValue;
+//     }
 
-    public String getAllocationJson() {
-        return allocationJson;
-    }
+//     public String getAllocationJson() {
+//         return allocationJson;
+//     }
 
-    public void setAllocationJson(String allocationJson) {
-        this.allocationJson = allocationJson;
-    }
+//     public void setAllocationJson(String allocationJson) {
+//         this.allocationJson = allocationJson;
+//     }
 
-    public LocalDateTime getSnapshotDateTime() {
-        return snapshotDateTime;
-    }
+//     public LocalDateTime getSnapshotDateTime() {
+//         return snapshotDateTime;
+//     }
 
-    public void setSnapshotDateTime(LocalDateTime snapshotDateTime) {
-        this.snapshotDateTime = snapshotDateTime;
-    }
-}
+//     public void setSnapshotDateTime(LocalDateTime snapshotDateTime) {
+//         this.snapshotDateTime = snapshotDateTime;
+//     }
+// }
