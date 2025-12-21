@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Zone;
+import com.example.demo.entity.InvestorProfile;
 import java.util.List;
 
-public interface ZoneService {
+public interface InvestorProfileService {
 
     InvestorProfile createInvestor(InvestorProfile investor);
 
@@ -11,7 +11,7 @@ public interface ZoneService {
 
     InvestorProfile findByInvestorId(String investorId);
 
-    getAllInvestors(();
+    InvestorProfile getAllInvestors();
 
-    void deactivateZone(Long id);
+    InvestorProfile updateInvestorStatus(Long id,boolean active);
 }
