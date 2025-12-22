@@ -1,54 +1,54 @@
-// package com.example.demo.entity;
+package com.example.demo.entity;
 
-// import jakarta.persistence.*;
-// import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-// @Entity
-// public class AllocationSnapshot {
+@Entity
+public class AllocationSnapshot {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private Long investorId;
+    private Long investorId;
 
-//     private Double totalPortfolioValue;
+    private Double totalPortfolioValue;
 
-//     private LocalDateTime calculatedAt;
+    private LocalDateTime calculatedAt;
 
-//     public AllocationSnapshot() {}
+    public AllocationSnapshot() {}
 
-//     public AllocationSnapshot(Long investorId, Double totalPortfolioValue, LocalDateTime calculatedAt) {
-//         this.investorId = investorId;
-//         this.totalPortfolioValue = totalPortfolioValue;
-//         this.calculatedAt = calculatedAt;
-//     }
+    public AllocationSnapshot(Long investorId, Double totalPortfolioValue, LocalDateTime calculatedAt) {
+        this.investorId = investorId;
+        this.totalPortfolioValue = totalPortfolioValue;
+        this.calculatedAt = calculatedAt;
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
+    public Long getId() {
+        return id;
+    }
 
-//     public Long getInvestorId() {
-//         return investorId;
-//     }
+    public Long getInvestorId() {
+        return investorId;
+    }
 
-//     public void setInvestorId(Long investorId) {
-//         this.investorId = investorId;
-//     }
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
 
-//     public Double getTotalPortfolioValue() {
-//         return totalPortfolioValue;
-//     }
+    public Double getTotalPortfolioValue() {
+        return totalPortfolioValue;
+    }
 
-//     public void setTotalPortfolioValue(Double totalPortfolioValue) {
-//         this.totalPortfolioValue = totalPortfolioValue;
-//     }
+    public void setTotalPortfolioValue(Double totalPortfolioValue) {
+        this.totalPortfolioValue = totalPortfolioValue;
+    }
 
-//     public LocalDateTime getCalculatedAt() {
-//         return calculatedAt;
-//     }
+    public LocalDateTime getCalculatedAt() {
+        return calculatedAt;
+    }
 
-//     public void setCalculatedAt(LocalDateTime calculatedAt) {
-//         this.calculatedAt = calculatedAt;
-//     }
-// }
+    public void setCalculatedAt(LocalDateTime calculatedAt) {
+        this.calculatedAt = calculatedAt;
+    }
+}
