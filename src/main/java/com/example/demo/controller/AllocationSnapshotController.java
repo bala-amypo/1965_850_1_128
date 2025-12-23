@@ -13,8 +13,8 @@ public class AllocationSnapshotController {
         this.allocationSnapshotService = allocationSnapshotService;
     }
 
-    @GetMapping("/allocation/snapshot")
-    public String getSnapshot() {
-        return allocationSnapshotService.getSnapshot();
+    @GetMapping("/snapshot")
+    public String snapshot() {
+        return allocationSnapshotService.fetchSnapshot();
     }
 }
