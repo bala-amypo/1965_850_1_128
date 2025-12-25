@@ -1,68 +1,55 @@
-// package com.example.demo.service.impl;
+@Service
+public class AllocationSnapshotServiceImpl {
 
-// import com.example.demo.entity.AllocationSnapshotRecord;
-// import com.example.demo.entity.HoldingRecord;
-// import com.example.demo.repository.AllocationSnapshotRecordRepository;
-// import com.example.demo.service.HoldingRecordService;
-// import com.example.demo.service.AllocationSnapshotService;
+    private final AllocationSnapshotRecordRepository snapshotRepo;
+    private final HoldingRecordRepository holdingRepo;
+    private final AssetClassAllocationRuleRepository ruleRepo;
+    private final RebalancingAlertRecordRepository alertRepo;
 
-// import org.springframework.stereotype.Service;
-// import java.time.LocalDateTime;
-// import java.util.List;
-// import java.util.stream.Collectors;
+    public AllocationSnapshotServiceImpl(
+            AllocationSnapshotRecordRepository snapshotRepo,
+            HoldingRecordRepository holdingRepo,
+            AssetClassAllocationRuleRepository ruleRepo,
+            RebalancingAlertRecordRepository alertRepo) {
 
-// @Service
-// public class AllocationSnapshotServiceImpl implements AllocationSnapshotService {
+        this.snapshotRepo = snapshotRepo;
+        this.holdingRepo = holdingRepo;
+        this.ruleRepo = ruleRepo;
+        this.alertRepo = alertRepo;
+    }
 
-//     private final AllocationSnapshotRecordRepository allocationRepo;
-//     private final HoldingRecordService holdingService;
+    public AllocationSnapshotRecord computeSnapshot(Long investorId) {
 
-//     public AllocationSnapshotServiceImpl(AllocationSnapshotRecordRepository allocationRepo,
-//                                          HoldingRecordService holdingService) {
-//         this.allocationRepo = allocationRepo;
-//         this.holdingService = holdingService;
-//     }
+        List<HoldingRecord> holdings = holdingRepo.findByInvestorId(investorId);
+        if (holdings.isEmpty()) throw new RuntimeException("No holdings");
 
-//     @Override
-//     public AllocationSnapshotRecord computeSnapshot(Long investorId) {
+        double total = holdings.stream().mapToDouble(HoldingRecord::getCurrentValue).sum();
+        if (total <= 0) throw new RuntimeException("must be > 0");
 
-//         List<HoldingRecord> holdings = holdingService.getHoldingsByInvestorId(investorId);
+        Map<AssetClassType, Double> map = new HashMap<>();
+        for (HoldingRecord h : holdings) {
+            map.merge(h.getAssetClass(), h.getCurrentValue(), Double::sum);
+        }
 
-//         if(holdings.isEmpty()){
-//             throw new RuntimeException("No holdings found for investor");
-//         }
+        AllocationSnapshotRecord snap = new AllocationSnapshotRecord();
+        snap.setInvestorId(investorId);
+        snap.setTotalPortfolioValue(total);
+        snap.setAllocationJson(map.toString());
+        snapshotRepo.save(snap);
 
-//         double total = holdings.stream()
-//                 .mapToDouble(HoldingRecord::getHoldingValue)
-//                 .sum();
-
-//         String json = holdings.stream()
-//                 .map(h -> h.getAssetType() + ":" + h.getHoldingValue())
-//                 .collect(Collectors.joining(", "));
-
-//         AllocationSnapshotRecord snap = new AllocationSnapshotRecord(
-//                 investorId,
-//                 LocalDateTime.now(),
-//                 total,
-//                 "{"+json+"}"
-//         );
-
-//         return allocationRepo.save(snap);
-//     }
-
-//     @Override
-//     public AllocationSnapshotRecord getSnapshotById(Long id) {
-//         return allocationRepo.findById(id)
-//                 .orElseThrow(() -> new RuntimeException("Snapshot not found"));
-//     }
-
-//     @Override
-//     public List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId) {
-//         return allocationRepo.findByInvestorId(investorId);
-//     }
-
-//     @Override
-//     public List<AllocationSnapshotRecord> getAllSnapshots() {
-//         return allocationRepo.findAll();
-//     }
-// }
+        List<AssetClassAllocationRule> rules = ruleRepo.findActiveRulesHql(investorId);
+        for (AssetClassAllocationRule r : rules) {
+            double currentPct = (map.getOrDefault(r.getAssetClass(), 0.0) / total) * 100;
+            if (currentPct > r.getTargetPercentage()) {
+                RebalancingAlertRecord alert = new RebalancingAlertRecord();
+                alert.setInvestorId(investorId);
+                alert.setAssetClass(r.getAssetClass());
+                alert.setCurrentPercentage(currentPct);
+                alert.setTargetPercentage(r.getTargetPercentage());
+                alert.setSeverity(AlertSeverity.HIGH);
+                alertRepo.save(alert);
+            }
+        }
+        return snap;
+    }
+}
