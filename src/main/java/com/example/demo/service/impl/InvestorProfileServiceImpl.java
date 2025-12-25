@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.InvestorProfile;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.InvestorProfileRepository;
 import com.example.demo.service.InvestorProfileService;
 import org.springframework.stereotype.Service;
@@ -8,45 +9,40 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InvestorProfileServiceImpl
-        implements InvestorProfileService {
+public class InvestorProfileServiceImpl implements InvestorProfileService {
 
-    private final InvestorProfileRepository investorProfileRepository;
+    private final InvestorProfileRepository repository;
 
-    public InvestorProfileServiceImpl(
-            InvestorProfileRepository investorProfileRepository) {
-        this.investorProfileRepository = investorProfileRepository;
+    public InvestorProfileServiceImpl(InvestorProfileRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public InvestorProfile createInvestor(InvestorProfile investor) {
-        return investorProfileRepository.save(investor);
+        return repository.save(investor);
     }
 
     @Override
     public InvestorProfile getInvestorById(Long id) {
-        return investorProfileRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Investor not found with id: " + id));
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
 
     @Override
     public InvestorProfile findByInvestorId(String investorId) {
-        return investorProfileRepository.findByInvestorId(investorId)
-                .orElseThrow(() ->
-                        new RuntimeException("Investor not found with investorId: " + investorId));
+        return repository.findByInvestorId(investorId)
+                .orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
 
-    // 🔴 FIXED return type
     @Override
     public List<InvestorProfile> getAllInvestors() {
-        return investorProfileRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public InvestorProfile updateInvestorStatus(Long id, boolean active) {
         InvestorProfile investor = getInvestorById(id);
         investor.setActive(active);
-        return investorProfileRepository.save(investor);
+        return repository.save(investor);
     }
 }
