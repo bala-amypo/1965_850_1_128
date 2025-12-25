@@ -1,20 +1,16 @@
-package com.example.demo.controller;
-
-import com.example.demo.service.AllocationSnapshotService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 @RestController
+@RequestMapping("/api/snapshots")
+@Tag(name = "Snapshots")
 public class AllocationSnapshotController {
 
-    private final AllocationSnapshotService allocationSnapshotService;
+    private final AllocationSnapshotServiceImpl service;
 
-    public AllocationSnapshotController(AllocationSnapshotService allocationSnapshotService) {
-        this.allocationSnapshotService = allocationSnapshotService;
+    public AllocationSnapshotController(AllocationSnapshotServiceImpl service) {
+        this.service = service;
     }
 
-    @GetMapping("/snapshot")
-    public String snapshot() {
-        return allocationSnapshotService.fetchSnapshot();
+    @PostMapping("/compute/{investorId}")
+    public AllocationSnapshotRecord compute(@PathVariable Long investorId) {
+        return service.computeSnapshot(investorId);
     }
 }
