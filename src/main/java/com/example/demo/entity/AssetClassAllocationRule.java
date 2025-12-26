@@ -10,11 +10,20 @@ public class AssetClassAllocationRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String assetClass;
 
-    @Column(nullable = false)
-    private Double allocationPercentage;
+    private double targetPercentage;
 
-    // getters & setters
+    private boolean active;
+
+    // ===== GETTERS =====
+    public Long getId() { return id; }
+    public String getAssetClass() { return assetClass; }
+    public double getTargetPercentage() { return targetPercentage; }
+    public boolean getActive() { return active; }
+
+    // ===== SETTERS =====
+    public void setAssetClass(String assetClass) { this.assetClass = assetClass; }
+    public void setTargetPercentage(double targetPercentage) { this.targetPercentage = targetPercentage; }
+    public void setActive(boolean active) { this.active = active; }
 }

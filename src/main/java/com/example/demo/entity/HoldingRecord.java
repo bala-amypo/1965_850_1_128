@@ -10,11 +10,16 @@ public class HoldingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String assetName;
+    private String assetClass;
 
-    @Column(nullable = false)
-    private Double value;
+    private double currentValue;
 
-    // getters & setters
+    // ===== GETTERS =====
+    public Long getId() { return id; }
+    public String getAssetClass() { return assetClass; }
+    public double getCurrentValue() { return currentValue; }
+
+    // ===== SETTERS =====
+    public void setAssetClass(String assetClass) { this.assetClass = assetClass; }
+    public void setCurrentValue(double currentValue) { this.currentValue = currentValue; }
 }
