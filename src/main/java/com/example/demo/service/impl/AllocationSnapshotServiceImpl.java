@@ -7,6 +7,7 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.*;
 import com.example.demo.service.AllocationSnapshotService;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
 
     @Override
     public AllocationSnapshotRecord computeSnapshot(Long investorId) {
+
         List<HoldingRecord> holdings = holdingRecordRepository.findByInvestorId(investorId);
         if (holdings.isEmpty()) {
             throw new IllegalArgumentException("No holdings found for investor: " + investorId);
@@ -46,37 +48,61 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
             throw new IllegalArgumentException("Total portfolio value must be > 0");
         }
 
+        // FIXED MAP (Enum as key)
         Map<AssetClassType, Double> allocationMap = new HashMap<>();
+
         for (HoldingRecord holding : holdings) {
-            allocationMap.merge(holding.getAssetClass(), holding.getCurrentValue(), Double::sum);
+            AssetClassType assetClass =
+                    AssetClassType.valueOf(holding.getAssetClass().toUpperCase());
+
+            allocationMap.merge(
+                    assetClass,
+                    holding.getCurrentValue(),
+                    Double::sum
+            );
         }
 
         Map<AssetClassType, Double> percentageMap = new HashMap<>();
         for (Map.Entry<AssetClassType, Double> entry : allocationMap.entrySet()) {
-            percentageMap.put(entry.getKey(), (entry.getValue() / totalValue) * 100.0);
+            percentageMap.put(
+                    entry.getKey(),
+                    (entry.getValue() / totalValue) * 100.0
+            );
         }
 
+        // JSON STRING BUILD
         StringBuilder jsonBuilder = new StringBuilder("{");
         boolean first = true;
         for (Map.Entry<AssetClassType, Double> entry : percentageMap.entrySet()) {
             if (!first) jsonBuilder.append(",");
-            jsonBuilder.append("\"").append(entry.getKey()).append("\":").append(entry.getValue());
+            jsonBuilder.append("\"")
+                    .append(entry.getKey())
+                    .append("\":")
+                    .append(entry.getValue());
             first = false;
         }
         jsonBuilder.append("}");
 
         AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord(
-                investorId, LocalDateTime.now(), totalValue, jsonBuilder.toString());
+                investorId,
+                LocalDateTime.now(),
+                totalValue,
+                jsonBuilder.toString()
+        );
+
         snapshot = snapshotRecordRepository.save(snapshot);
 
-        List<AssetClassAllocationRule> activeRules = 
+        List<AssetClassAllocationRule> activeRules =
                 allocationRuleRepository.findByInvestorIdAndActiveTrue(investorId);
 
         for (AssetClassAllocationRule rule : activeRules) {
+
             Double currentPercentage = percentageMap.get(rule.getAssetClass());
             if (currentPercentage != null && currentPercentage > rule.getTargetPercentage()) {
+
                 double drift = currentPercentage - rule.getTargetPercentage();
                 AlertSeverity severity;
+
                 if (drift > 10) {
                     severity = AlertSeverity.HIGH;
                 } else if (drift > 5) {
@@ -91,11 +117,15 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
                         currentPercentage,
                         rule.getTargetPercentage(),
                         severity,
-                        String.format("Asset class %s is %.2f%% over target", 
-                                rule.getAssetClass(), drift),
+                        String.format(
+                                "Asset class %s is %.2f%% over target",
+                                rule.getAssetClass(),
+                                drift
+                        ),
                         LocalDateTime.now(),
                         false
                 );
+
                 alertRecordRepository.save(alert);
             }
         }
@@ -106,7 +136,8 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
     @Override
     public AllocationSnapshotRecord getSnapshotById(Long id) {
         return snapshotRecordRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Snapshot not found with id: " + id));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Snapshot not found with id: " + id));
     }
 
     @Override
