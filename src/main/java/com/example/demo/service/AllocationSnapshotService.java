@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.AllocationSnapshotRecord;
+import java.util.List;
 
-@Service
-public class AllocationSnapshotService {
-
-    public String fetchSnapshot() {
-        return "Allocation Snapshot OK";
-    }
+public interface AllocationSnapshotService {
+    AllocationSnapshotRecord computeSnapshot(Long investorId);
+    AllocationSnapshotRecord getSnapshotById(Long id);
+    List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId);
+    List<AllocationSnapshotRecord> getAllSnapshots();
 }
