@@ -15,6 +15,9 @@ public class InvestorProfile {
 
     @Column(nullable = false)
     private String riskProfile;
+    @Column(nullable = false)
+    private boolean active = true;
+
 
 public boolean isActive() {
     return active;
