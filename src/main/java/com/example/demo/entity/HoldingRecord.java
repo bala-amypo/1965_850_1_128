@@ -1,8 +1,6 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.enums.AssetClassType;
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "holding_records")
@@ -13,67 +11,10 @@ public class HoldingRecord {
     private Long id;
 
     @Column(nullable = false)
-    private Long investorId;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private AssetClassType assetClass;
+    private String assetName;
 
     @Column(nullable = false)
-    private Double currentValue;
+    private Double value;
 
-    @Column(nullable = false)
-    private LocalDateTime snapshotDate;
-
-    public HoldingRecord() {
-    }
-
-    public HoldingRecord(Long investorId, AssetClassType assetClass, 
-                        Double currentValue, LocalDateTime snapshotDate) {
-        this.investorId = investorId;
-        this.assetClass = assetClass;
-        this.currentValue = currentValue;
-        this.snapshotDate = snapshotDate;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public void setAssetClass(AssetClassType assetClass) {
-        this.assetClass = assetClass;
-    }
-
-    public Double getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(Double currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public LocalDateTime getSnapshotDate() {
-        return snapshotDate;
-    }
-
-    public void setSnapshotDate(LocalDateTime snapshotDate) {
-        this.snapshotDate = snapshotDate;
-    }
+    // getters & setters
 }
