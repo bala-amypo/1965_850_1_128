@@ -1,37 +1,49 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.AssetClassAllocationRule;
+import com.example.demo.service.AllocationRuleService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/allocation-rules")
-@Tag(name = "Allocation Rules")
 public class AllocationRuleController {
 
-    private final AllocationRuleService service;
+    private final AllocationRuleService allocationRuleService;
 
-    public AllocationRuleController(AllocationRuleService service) {
-        this.service = service;
+    public AllocationRuleController(AllocationRuleService allocationRuleService) {
+        this.allocationRuleService = allocationRuleService;
     }
 
     @PostMapping
-    public AssetClassAllocationRule create(@RequestBody AssetClassAllocationRule rule) {
-        return service.createRule(rule);
+    public ResponseEntity<AssetClassAllocationRule> createRule(@RequestBody AssetClassAllocationRule rule) {
+        AssetClassAllocationRule created = allocationRuleService.createRule(rule);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public AssetClassAllocationRule update(@PathVariable Long id,
-                                           @RequestBody AssetClassAllocationRule rule) {
-        return service.updateRule(id, rule);
+    public ResponseEntity<AssetClassAllocationRule> updateRule(
+            @PathVariable Long id, @RequestBody AssetClassAllocationRule rule) {
+        AssetClassAllocationRule updated = allocationRuleService.updateRule(id, rule);
+        return ResponseEntity.ok(updated);
     }
 
     @GetMapping("/investor/{investorId}")
-    public List<AssetClassAllocationRule> byInvestor(@PathVariable Long investorId) {
-        return service.getRulesByInvestor(investorId);
+    public ResponseEntity<List<AssetClassAllocationRule>> getRulesByInvestor(@PathVariable Long investorId) {
+        List<AssetClassAllocationRule> rules = allocationRuleService.getRulesByInvestor(investorId);
+        return ResponseEntity.ok(rules);
     }
 
     @GetMapping("/{id}")
-    public AssetClassAllocationRule get(@PathVariable Long id) {
-        return service.getRuleById(id);
+    public ResponseEntity<AssetClassAllocationRule> getRuleById(@PathVariable Long id) {
+        AssetClassAllocationRule rule = allocationRuleService.getRuleById(id);
+        return ResponseEntity.ok(rule);
     }
 
     @GetMapping
-    public List<AssetClassAllocationRule> list() {
-        return service.getRulesByInvestor(null);
+    public ResponseEntity<List<AssetClassAllocationRule>> getAllRules() {
+        return ResponseEntity.ok(allocationRuleService.getRulesByInvestor(null));
     }
 }
