@@ -3,23 +3,32 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "holding_records")
+@Table(name = "holding_record")
 public class HoldingRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String assetClass;
+    private Long investorId;
+
+    private String assetClass;   // 👈 STRING (IMPORTANT)
 
     private double currentValue;
 
-    // ===== GETTERS =====
-    public Long getId() { return id; }
-    public String getAssetClass() { return assetClass; }
-    public double getCurrentValue() { return currentValue; }
+    public Long getId() {
+        return id;
+    }
 
-    // ===== SETTERS =====
-    public void setAssetClass(String assetClass) { this.assetClass = assetClass; }
-    public void setCurrentValue(double currentValue) { this.currentValue = currentValue; }
+    public Long getInvestorId() {
+        return investorId;
+    }
+
+    public String getAssetClass() {
+        return assetClass;
+    }
+
+    public double getCurrentValue() {
+        return currentValue;
+    }
 }

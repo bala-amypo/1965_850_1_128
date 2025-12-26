@@ -1,29 +1,34 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "asset_class_allocation_rules")
+@Table(name = "asset_class_allocation_rule")
 public class AssetClassAllocationRule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String assetClass;
+    private Long investorId;
+
+    @Enumerated(EnumType.STRING)
+    private AssetClassType assetClass;
 
     private double targetPercentage;
 
     private boolean active;
 
-    // ===== GETTERS =====
-    public Long getId() { return id; }
-    public String getAssetClass() { return assetClass; }
-    public double getTargetPercentage() { return targetPercentage; }
-    public boolean getActive() { return active; }
+    public AssetClassType getAssetClass() {
+        return assetClass;
+    }
 
-    // ===== SETTERS =====
-    public void setAssetClass(String assetClass) { this.assetClass = assetClass; }
-    public void setTargetPercentage(double targetPercentage) { this.targetPercentage = targetPercentage; }
-    public void setActive(boolean active) { this.active = active; }
+    public double getTargetPercentage() {
+        return targetPercentage;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
 }
