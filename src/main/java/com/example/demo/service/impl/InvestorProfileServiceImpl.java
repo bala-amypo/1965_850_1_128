@@ -1,48 +1,38 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.InvestorProfile;
+import com.example.demo.entity.*;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.InvestorProfileRepository;
-import com.example.demo.service.InvestorProfileService;
-import org.springframework.stereotype.Service;
+import com.example.demo.repository.*;
+import java.util.*;
 
-import java.util.List;
+public class InvestorProfileServiceImpl {
 
-@Service
-public class InvestorProfileServiceImpl implements InvestorProfileService {
+    private final InvestorProfileRepository repo;
 
-    private final InvestorProfileRepository repository;
-
-    public InvestorProfileServiceImpl(InvestorProfileRepository repository) {
-        this.repository = repository;
+    public InvestorProfileServiceImpl(InvestorProfileRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
     public InvestorProfile createInvestor(InvestorProfile investor) {
-        return repository.save(investor);
+        return repo.save(investor);
     }
 
-    @Override
     public InvestorProfile getInvestorById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("not found"));
+        return repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Investor not found " + id));
     }
 
-    @Override
-    public InvestorProfile findByInvestorId(String investorId) {
-        return repository.findByInvestorId(investorId)
-                .orElseThrow(() -> new ResourceNotFoundException("not found"));
-    }
-
-    @Override
     public List<InvestorProfile> getAllInvestors() {
-        return repository.findAll();
+        return repo.findAll();
     }
 
-    @Override
-    public InvestorProfile updateInvestorStatus(Long id, boolean active) {
+    public InvestorProfile updateInvestorStatus(Long id, Boolean active) {
         InvestorProfile investor = getInvestorById(id);
         investor.setActive(active);
-        return repository.save(investor);
+        return repo.save(investor);
+    }
+
+    public Optional<InvestorProfile> findByInvestorId(String investorId) {
+        return repo.findByInvestorId(investorId);
     }
 }
