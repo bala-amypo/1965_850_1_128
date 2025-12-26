@@ -16,5 +16,14 @@ public class InvestorProfile {
     @Column(nullable = false)
     private String riskProfile;
 
+public boolean isActive() {
+    return active;
+}
+
+public void setActive(boolean active) {
+    this.active = active;
+}
+
+
     // getters & setters
 }
