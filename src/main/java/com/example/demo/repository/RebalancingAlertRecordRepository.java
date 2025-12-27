@@ -1,12 +1,12 @@
-package com.example.demo.repository;
+package sbs.rosedev.springFirst.repository;
 
-import com.example.demo.entity.RebalancingAlertRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Repository
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import sbs.rosedev.springFirst.entity.RebalancingAlertRecord;
+
 public interface RebalancingAlertRecordRepository extends JpaRepository<RebalancingAlertRecord, Long> {
     List<RebalancingAlertRecord> findByInvestorId(Long investorId);
-    List<RebalancingAlertRecord> findByResolvedFalse();
+    // List<RebalancingAlertRecord> findByResolvedFalse();
 }

@@ -1,11 +1,11 @@
-package com.example.demo.repository;
+package sbs.rosedev.springFirst.repository;
 
-import com.example.demo.entity.UserAccount;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-@Repository
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import sbs.rosedev.springFirst.entity.UserAccount;
+
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
     Optional<UserAccount> findByEmail(String email);
     Optional<UserAccount> findByUsername(String username);

@@ -1,19 +1,45 @@
-// public class JwtUtil {
+package sbs.rosedev.springFirst.security;
 
-//     private final String secret;
-//     private final long validityInMs;
+import java.util.Date;
 
-//     public JwtUtil(String secret, long validityInMs) {
-//         this.secret = secret;
-//         this.validityInMs = validityInMs;
-//     }
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import sbs.rosedev.springFirst.entity.UserAccount;
 
-//     public String generateToken(String username) {
-//         return Jwts.builder()
-//                 .setSubject(username)
-//                 .setIssuedAt(new Date())
-//                 .setExpiration(new Date(System.currentTimeMillis() + validityInMs))
-//                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
-//                 .compact();
-//     }
-// }
+// @Component
+public class JwtUtil {
+
+    private final String secret;
+    private final long validityInMs;
+
+    public JwtUtil(String secret, long validityInMs) {
+        this.secret = secret;
+        this.validityInMs = validityInMs;
+    }
+
+    public String generateToken(UserAccount user) {
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMs);
+
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .claim("role", user.getRole().name())
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+
+    public String extractEmail(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+        return true;
+    }
+}
