@@ -1,16 +1,8 @@
-package com.example.demo.dto;
+package sbs.rosedev.springFirst.dto;
 
 public class AuthRequest {
     private String email;
     private String password;
-
-    public AuthRequest() {
-    }
-
-    public AuthRequest(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
@@ -27,4 +19,6 @@ public class AuthRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    
 }
