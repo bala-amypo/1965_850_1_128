@@ -2,9 +2,12 @@ package com.example.demo.entity;
 
 import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "asset_class_allocation_rule")
+@Getter
+@Setter
 public class AssetClassAllocationRule {
 
     @Id
@@ -18,17 +21,5 @@ public class AssetClassAllocationRule {
 
     private double targetPercentage;
 
-    private boolean active;
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public double getTargetPercentage() {
-        return targetPercentage;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
+    private Boolean active;
 }

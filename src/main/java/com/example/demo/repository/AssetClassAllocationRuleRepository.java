@@ -8,5 +8,5 @@ import java.util.List;
 public interface AssetClassAllocationRuleRepository
         extends JpaRepository<AssetClassAllocationRule, Long> {
 
-    List<AssetClassAllocationRule> findByInvestorIdAndActiveTrue(Long investorId);
+    List<AssetClassAllocationRule> findByInvestorId(Long investorId);
 }

@@ -4,5 +4,6 @@ public enum AssetClassType {
     EQUITY,
     DEBT,
     GOLD,
-    REAL_ESTATE
+    REAL_ESTATE,
+    CASH
 }
