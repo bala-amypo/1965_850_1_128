@@ -1,12 +1,45 @@
-package com.example.demo.service;
+package sbs.rosedev.springFirst.security;
 
-import com.example.demo.entity.AssetClassAllocationRule;
-import java.util.List;
+import java.util.Date;
 
-public interface AllocationRuleService {
-    AssetClassAllocationRule createRule(AssetClassAllocationRule rule);
-    AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule updatedRule);
-    List<AssetClassAllocationRule> getRulesByInvestor(Long investorId);
-    List<AssetClassAllocationRule> getActiveRules(Long investorId);
-    AssetClassAllocationRule getRuleById(Long id);
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import sbs.rosedev.springFirst.entity.UserAccount;
+
+// @Component
+public class JwtUtil {
+
+    private final String secret;
+    private final long validityInMs;
+
+    public JwtUtil(String secret, long validityInMs) {
+        this.secret = secret;
+        this.validityInMs = validityInMs;
+    }
+
+    public String generateToken(UserAccount user) {
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMs);
+
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .claim("role", user.getRole().name())
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+
+    public String extractEmail(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+        return true;
+    }
 }
