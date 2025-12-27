@@ -1,69 +1,51 @@
-package sbs.rosedev.springFirst.entity;
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
 @Entity
 public class AllocationSnapshotRecord {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long investorId;
     private LocalDateTime snapshotDate;
-    private double totalPortfolioValue;
-    private String allocationJson;
+    private Double totalPortfolioValue;
+    
+    @Column(length = 4096)
+    private String holdingsJson;
 
-    public AllocationSnapshotRecord(Long investorId, LocalDateTime snapshotDate,
-                                    Double totalPortfolioValue, String allocationJson) {
-        this.investorId = investorId;
-        this.snapshotDate = snapshotDate;
-        this.totalPortfolioValue = totalPortfolioValue;
-        this.allocationJson = allocationJson;
-    }
+    public AllocationSnapshotRecord() {}
 
-    public AllocationSnapshotRecord() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public AllocationSnapshotRecord(Long id, Long investorId, LocalDateTime snapshotDate, Double totalPortfolioValue, String holdingsJson) {
         this.id = id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public void setInvestorId(Long investorId) {
         this.investorId = investorId;
-    }
-
-    public LocalDateTime getSnapShotDate() {
-        return snapshotDate;
-    }
-
-    public void setSnapShotDate(LocalDateTime snapshotDate) {
         this.snapshotDate = snapshotDate;
-    }
-
-    public double getTotalPortfolioValue() {
-        return totalPortfolioValue;
-    }
-
-    public void setTotalPortfolioValue(double totalPortfolioValue) {
         this.totalPortfolioValue = totalPortfolioValue;
+        this.holdingsJson = holdingsJson;
     }
 
-    public String getAllocationJson() {
-        return allocationJson;
+    public AllocationSnapshotRecord(Long investorId, LocalDateTime snapshotDate, Double totalPortfolioValue, String holdingsJson) {
+        this.investorId = investorId;
+        this.snapshotDate = snapshotDate;
+        this.totalPortfolioValue = totalPortfolioValue;
+        this.holdingsJson = holdingsJson;
     }
 
-    public void setAllocationJson(String allocationJson) {
-        this.allocationJson = allocationJson;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
+    public Long getInvestorId() { return investorId; }
+    public void setInvestorId(Long investorId) { this.investorId = investorId; }
 
+    public LocalDateTime getSnapshotDate() { return snapshotDate; }
+    public void setSnapshotDate(LocalDateTime snapshotDate) { this.snapshotDate = snapshotDate; }
+
+    public Double getTotalPortfolioValue() { return totalPortfolioValue; }
+    public void setTotalPortfolioValue(Double totalPortfolioValue) { this.totalPortfolioValue = totalPortfolioValue; }
+
+    public String getHoldingsJson() { return holdingsJson; }
+    public void setHoldingsJson(String holdingsJson) { this.holdingsJson = holdingsJson; }
 }

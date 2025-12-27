@@ -1,5 +1,7 @@
-package sbs.rosedev.springFirst.entity.enums;
+package com.example.demo.entity.enums;
 
 public enum AlertSeverity {
-    LOW, MEDIUM, HIGH
+    LOW,
+    MEDIUM,
+    HIGH
 }

@@ -1,79 +1,47 @@
-package sbs.rosedev.springFirst.entity;
+package com.example.demo.entity;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
 @Entity
 public class InvestorProfile {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
+
     private String investorId;
     private String fullName;
-    @Column(unique=true)
-    @Email(message="Invalid Email")
     private String email;
-    private boolean active = true;
+    private Boolean active;
 
-    public InvestorProfile() {
-    }
-
-    public InvestorProfile(
-        String investorId,
-        String fullName,
-        String email,
-        boolean active,
-        LocalDateTime createdAt
-    ) {
-        this.investorId = investorId;
-        this.fullName = fullName;
-        this.email = email;
-        this.active = active;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
+    public InvestorProfile() {}
+    
+    public InvestorProfile(Long id, String investorId, String fullName, String email, Boolean active) {
         this.id = id;
-    }
-
-    public String getInvestorId() {
-        return this.investorId;
-    }
-
-    public void setInvestorId(String investorId) {
         this.investorId = investorId;
-    }
-
-    public String getFullName() {
-        return this.fullName;
-    }
-
-    public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean getActive() {
-        return this.active;
-    }
-
-    public void setActive(boolean active) {
         this.active = active;
     }
+
+    public InvestorProfile(String investorId, String fullName, String email, Boolean active) {
+        this.investorId = investorId;
+        this.fullName = fullName;
+        this.email = email;
+        this.active = active;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getInvestorId() { return investorId; }
+    public void setInvestorId(String investorId) { this.investorId = investorId; }
+
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
