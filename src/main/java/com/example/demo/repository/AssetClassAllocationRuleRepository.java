@@ -9,4 +9,6 @@ public interface AssetClassAllocationRuleRepository
         extends JpaRepository<AssetClassAllocationRule, Long> {
 
     List<AssetClassAllocationRule> findByInvestorId(Long investorId);
+
+    List<AssetClassAllocationRule> findByInvestorIdAndActiveTrue(Long investorId);
 }
