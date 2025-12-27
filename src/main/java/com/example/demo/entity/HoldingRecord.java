@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,23 +13,19 @@ public class HoldingRecord {
 
     private Long investorId;
 
-    private String assetClass;   // 👈 STRING (IMPORTANT)
+    @Enumerated(EnumType.STRING)
+    private AssetClassType assetClassType; // Changed from String assetClass to Enum
 
-    private double currentValue;
+    private double percentage; // Added/Renamed to match service call
 
-    public Long getId() {
-        return id;
-    }
+    public HoldingRecord() {}
 
-    public Long getInvestorId() {
-        return investorId;
-    }
+    public Long getId() { return id; }
+    public Long getInvestorId() { return investorId; }
+    public AssetClassType getAssetClassType() { return assetClassType; }
+    public double getPercentage() { return percentage; }
 
-    public String getAssetClass() {
-        return assetClass;
-    }
-
-    public double getCurrentValue() {
-        return currentValue;
-    }
+    public void setAssetClassType(AssetClassType assetClassType) { this.assetClassType = assetClassType; }
+    public void setPercentage(double percentage) { this.percentage = percentage; }
+    public void setInvestorId(Long investorId) { this.investorId = investorId; }
 }
