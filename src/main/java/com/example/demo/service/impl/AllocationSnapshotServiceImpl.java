@@ -30,18 +30,13 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
 
     @Override
     public AllocationSnapshotRecord generateSnapshot(Long investorId) {
-
-        List<HoldingRecord> holdings =
-                holdingRecordRepository.findByInvestorId(investorId);
-
-        List<AssetClassAllocationRule> rules =
-                allocationRuleRepository.findByInvestorIdAndActiveTrue(investorId);
+        List<HoldingRecord> holdings = holdingRecordRepository.findByInvestorId(investorId);
+        List<AssetClassAllocationRule> rules = allocationRuleRepository.findByInvestorIdAndActiveTrue(investorId);
 
         AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord();
         snapshot.setInvestorId(investorId);
 
         for (AssetClassAllocationRule rule : rules) {
-
             double currentPercentage = holdings.stream()
                     .filter(h -> h.getAssetClassType() == rule.getAssetClass())
                     .mapToDouble(HoldingRecord::getPercentage)
@@ -49,14 +44,29 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
 
             double targetPercentage = rule.getTargetPercentage();
 
-            // ✅ FIX: ENUM → STRING
             snapshot.addAllocation(
-                    rule.getAssetClass().name(),   // ← THIS FIXES THE ERROR
+                    rule.getAssetClass().name(),
                     currentPercentage,
                     targetPercentage
             );
         }
-
         return snapshotRepository.save(snapshot);
+    }
+
+    // --- ADDED THESE TO FIX COMPILATION ERRORS ---
+
+    @Override
+    public AllocationSnapshotRecord getSnapshotById(Long id) {
+        return snapshotRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId) {
+        return snapshotRepository.findByInvestorId(investorId);
+    }
+
+    @Override
+    public List<AllocationSnapshotRecord> getAllSnapshots() {
+        return snapshotRepository.findAll();
     }
 }
