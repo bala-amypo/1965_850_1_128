@@ -54,14 +54,14 @@
 // }
 
 
-package sbs.rosedev.springFirst.controller;
+package com.demo.springFirst.controller;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import sbs.rosedev.springFirst.entity.AssetClassAllocationRule;
-import sbs.rosedev.springFirst.service.impl.AllocationRuleServiceImpl;
+import com.demo.springFirst.entity.AssetClassAllocationRule;
+import com.demo.springFirst.service.impl.AllocationRuleServiceImpl;
 
 @RestController
 @RequestMapping("/api/allocation-rules")

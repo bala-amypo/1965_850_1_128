@@ -1,4 +1,4 @@
-package sbs.rosedev.springFirst.service.impl;
+package com.example.demo.config;
 
 import java.util.List;
 

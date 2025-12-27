@@ -1,8 +1,8 @@
-package sbs.rosedev.springFirst.config;
+package com.example.demo.config;
 
 import org.springframework.security.core.Authentication;
 
-import sbs.rosedev.springFirst.entity.UserAccount;
+import com.demo.springFirst.entity.UserAccount;
 
 public class JwtTokenProvider {
     private final String secret;

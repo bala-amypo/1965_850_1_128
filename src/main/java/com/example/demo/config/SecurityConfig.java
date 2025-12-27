@@ -13,9 +13,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 
-import sbs.rosedev.springFirst.security.JwtAuthenticationFilter;
-import sbs.rosedev.springFirst.security.JwtUtil;
-import sbs.rosedev.springFirst.security.CustomUserDetailsService;
+import com.demo.springFirst.security.JwtAuthenticationFilter;
+import com.demo.springFirst.security.JwtUtil;
+import com.demo.springFirst.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
