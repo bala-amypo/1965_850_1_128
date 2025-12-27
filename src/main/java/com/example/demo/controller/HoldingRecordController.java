@@ -1,86 +1,36 @@
-// package sbs.rosedev.springFirst.controller;
+package com.example.demo.controller;
 
-// import java.util.List;
-
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
-
-// import sbs.rosedev.springFirst.entity.HoldingRecord;
-// import sbs.rosedev.springFirst.services.HoldingRecordServiceImpl;
-
-// @RestController
-// @RequestMapping("/api/holdings")
-// public class HoldingRecordController {
-
-//     private final HoldingRecordServiceImpl holdingService;
-
-//     public HoldingRecordController(HoldingRecordServiceImpl holdingService) {
-//         this.holdingService = holdingService;
-//     }
-
-//     @PostMapping
-//     public HoldingRecord createHolding(
-//             @RequestBody HoldingRecord holding) {
-//         return holdingService.recordHolding(holding);
-//     }
-
-//     @GetMapping("/investor/{investorId}")
-//     public List<HoldingRecord> getHoldingsByInvestor(
-//             @PathVariable Long investorId) {
-//         return holdingService.getHoldingsByInvestor(investorId);
-//     }
-
-//     @GetMapping("/{id}")
-//     public HoldingRecord getHoldingById(@PathVariable Long id) {
-//         return holdingService.getHoldingById(id);
-//     }
-
-//     @GetMapping
-//     public List<HoldingRecord> getAllHoldings() {
-//         return holdingService.getAllHoldings();
-//     }
-// }
-
-
-package com.demo.springFirst.controller;
-
-import java.util.List;
-import java.util.Optional;
-
+import com.example.demo.entity.HoldingRecord;
+import com.example.demo.service.HoldingRecordService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.demo.springFirst.entity.HoldingRecord;
-import s.springFirst.service.impl.HoldingRecordServiceImpl;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/holdings")
 public class HoldingRecordController {
-bs.rosedev
-    private final HoldingRecordServiceImpl service;
 
-    public HoldingRecordController(HoldingRecordServiceImpl service) {
-        this.service = service;
+    private final HoldingRecordService holdingRecordService;
+
+    public HoldingRecordController(HoldingRecordService holdingRecordService) {
+        this.holdingRecordService = holdingRecordService;
     }
 
     @PostMapping
-    public HoldingRecord recordHolding(
-            @RequestBody HoldingRecord holding) {
-        return service.recordHolding(holding);
-    }
-
-    @GetMapping("/investor/{investorId}")
-    public List<HoldingRecord> getHoldingsByInvestor(
-            @PathVariable Long investorId) {
-        return service.getHoldingsByInvestor(investorId);
+    public ResponseEntity<HoldingRecord> recordHolding(@RequestBody HoldingRecord holding) {
+        return ResponseEntity.ok(holdingRecordService.recordHolding(holding));
     }
 
     @GetMapping("/{id}")
-    public Optional<HoldingRecord> getHoldingById(
-            @PathVariable Long id) {
-        return service.getHoldingById(id);
+    public ResponseEntity<HoldingRecord> getHoldingById(@PathVariable Long id) {
+        return holdingRecordService.getHoldingById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/investor/{investorId}")
+    public ResponseEntity<List<HoldingRecord>> getHoldingsByInvestor(@PathVariable Long investorId) {
+        return ResponseEntity.ok(holdingRecordService.getHoldingsByInvestor(investorId));
     }
 }
