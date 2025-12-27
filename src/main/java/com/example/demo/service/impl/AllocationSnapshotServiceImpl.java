@@ -8,7 +8,6 @@ import com.example.demo.repository.AssetClassAllocationRuleRepository;
 import com.example.demo.repository.HoldingRecordRepository;
 import com.example.demo.service.AllocationSnapshotService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -21,8 +20,7 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
     public AllocationSnapshotServiceImpl(
             AllocationSnapshotRecordRepository snapshotRepository,
             HoldingRecordRepository holdingRecordRepository,
-            AssetClassAllocationRuleRepository allocationRuleRepository
-    ) {
+            AssetClassAllocationRuleRepository allocationRuleRepository) {
         this.snapshotRepository = snapshotRepository;
         this.holdingRecordRepository = holdingRecordRepository;
         this.allocationRuleRepository = allocationRuleRepository;
@@ -42,18 +40,14 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
                     .mapToDouble(HoldingRecord::getPercentage)
                     .sum();
 
-            double targetPercentage = rule.getTargetPercentage();
-
             snapshot.addAllocation(
                     rule.getAssetClass().name(),
                     currentPercentage,
-                    targetPercentage
+                    rule.getTargetPercentage()
             );
         }
         return snapshotRepository.save(snapshot);
     }
-
-    // --- ADDED THESE TO FIX COMPILATION ERRORS ---
 
     @Override
     public AllocationSnapshotRecord getSnapshotById(Long id) {
