@@ -37,7 +37,11 @@ public class AssetClassAllocationRule {
         return targetPercentage;
     }
 
-    public Boolean getActive() {
+    /**
+     * Changed to isActive() to resolve the "cannot find symbol" error 
+     * in AllocationRuleServiceImpl.
+     */
+    public Boolean isActive() {
         return active;
     }
 
