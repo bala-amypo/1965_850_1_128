@@ -1,44 +1,31 @@
-package com.example.demo.config;
+package sbs.rosedev.springFirst.config;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 
-import java.security.Key;
-import java.util.Date;
+import sbs.rosedev.springFirst.entity.UserAccount;
 
-@Component
 public class JwtTokenProvider {
+    private final String secret;
+    private final long validity;
 
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long EXPIRATION = 86400000; // 1 day
-
-    public String generateToken(Authentication authentication) {
-        return Jwts.builder()
-                .setSubject(authentication.getName())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(key)
-                .compact();
+    public JwtTokenProvider(String secret, long validity) {
+        this.secret = secret;
+        this.validity = validity;
     }
 
-    public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getSubject();
+    public String generateToken(Authentication auth, UserAccount user) {
+        return auth.getName() + "-token";
     }
 
     public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder().setSigningKey(key).build().parse(token);
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
+        if (token == null) {
             return false;
         }
+
+        return token.matches("^[a-zA-Z]+[0-9]+-token$");
+    }
+
+    public String getUsernameFromToken(String token) {
+        return token.split("-")[0];
     }
 }
