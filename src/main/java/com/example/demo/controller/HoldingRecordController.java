@@ -46,20 +46,20 @@
 // }
 
 
-package sbs.rosedev.springFirst.controller;
+package com.demo.springFirst.controller;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.*;
 
-import sbs.rosedev.springFirst.entity.HoldingRecord;
-import sbs.rosedev.springFirst.service.impl.HoldingRecordServiceImpl;
+import com.demo.springFirst.entity.HoldingRecord;
+import s.springFirst.service.impl.HoldingRecordServiceImpl;
 
 @RestController
 @RequestMapping("/api/holdings")
 public class HoldingRecordController {
-
+bs.rosedev
     private final HoldingRecordServiceImpl service;
 
     public HoldingRecordController(HoldingRecordServiceImpl service) {

@@ -47,14 +47,14 @@
 // }
 
 
-package sbs.rosedev.springFirst.controller;
+package com.demo.springFirst.controller;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import sbs.rosedev.springFirst.entity.AllocationSnapshotRecord;
-import sbs.rosedev.springFirst.service.impl.AllocationSnapshotServiceImpl;
+import com.demo.springFirst.entity.AllocationSnapshotRecord;
+import com.demo.springFirst.service.impl.AllocationSnapshotServiceImpl;
 
 @RestController
 @RequestMapping("/api/snapshots")
