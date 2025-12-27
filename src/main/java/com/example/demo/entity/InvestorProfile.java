@@ -1,32 +1,79 @@
-package com.example.demo.entity;
+package sbs.rosedev.springFirst.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 @Entity
-@Table(name = "investor_profiles")
 public class InvestorProfile {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String investorName;
-
-    @Column(nullable = false)
-    private String riskProfile;
-    @Column(nullable = false)
+    @Column(unique=true)
+    private String investorId;
+    private String fullName;
+    @Column(unique=true)
+    @Email(message="Invalid Email")
+    private String email;
     private boolean active = true;
 
+    public InvestorProfile() {
+    }
 
-public boolean isActive() {
-    return active;
-}
+    public InvestorProfile(
+        String investorId,
+        String fullName,
+        String email,
+        boolean active,
+        LocalDateTime createdAt
+    ) {
+        this.investorId = investorId;
+        this.fullName = fullName;
+        this.email = email;
+        this.active = active;
+    }
 
-public void setActive(boolean active) {
-    this.active = active;
-}
+    public Long getId() {
+        return this.id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    // getters & setters
+    public String getInvestorId() {
+        return this.investorId;
+    }
+
+    public void setInvestorId(String investorId) {
+        this.investorId = investorId;
+    }
+
+    public String getFullName() {
+        return this.fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean getActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

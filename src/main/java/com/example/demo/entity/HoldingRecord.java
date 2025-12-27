@@ -1,38 +1,69 @@
-package com.example.demo.entity;
+package sbs.rosedev.springFirst.entity;
 
-import com.example.demo.entity.enums.AssetClassType;
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import sbs.rosedev.springFirst.entity.enums.AssetClassType;
 
 @Entity
-@Table(name = "holding_record")
 public class HoldingRecord {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long investorId;
+    private AssetClassType assetClass;
+    private Double currentValue;
+    private LocalDateTime createdAt;
 
-    @Enumerated(EnumType.STRING)
-    private AssetClassType assetClassType;
+    public HoldingRecord(Long investorId, AssetClassType assetClass,
+                         Double currentValue, LocalDateTime createdAt) {
+        this.investorId = investorId;
+        this.assetClass = assetClass;
+        this.currentValue = currentValue;
+        this.createdAt = createdAt;
+    }
 
-    private double percentage;
-    private double currentValue; // Add this field if it's missing
+    public Long getId() {
+        return id;
+    }
 
-    public HoldingRecord() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    // --- GETTERS ---
-    public Long getId() { return id; }
-    public Long getInvestorId() { return investorId; }
-    public AssetClassType getAssetClassType() { return assetClassType; }
-    public double getPercentage() { return percentage; }
-    
-    // This is the specific method the error is looking for
-    public double getCurrentValue() { return currentValue; }
+    public Long getInvestorId() {
+        return investorId;
+    }
 
-    // --- SETTERS ---
-    public void setInvestorId(Long investorId) { this.investorId = investorId; }
-    public void setAssetClassType(AssetClassType assetClassType) { this.assetClassType = assetClassType; }
-    public void setPercentage(double percentage) { this.percentage = percentage; }
-    public void setCurrentValue(double currentValue) { this.currentValue = currentValue; }
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
+
+    public AssetClassType getAssetClassType() {
+        return assetClass;
+    }
+
+    public void setAssetClassType(AssetClassType assetClass) {
+        this.assetClass = assetClass;
+    }
+
+    public Double getCurrentValue() {
+        return currentValue;
+    }
+
+    public void setCurrentValue(Double currentValue) {
+        this.currentValue = currentValue;
+    }
+
+    public LocalDateTime getcreatedAt() {
+        return createdAt;
+    }
+
+    public void setcreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public AssetClassType getAssetClass() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

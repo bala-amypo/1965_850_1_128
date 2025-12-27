@@ -1,69 +1,70 @@
-package com.example.demo.entity;
+package sbs.rosedev.springFirst.entity;
 
-import com.example.demo.entity.enums.AssetClassType;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import sbs.rosedev.springFirst.entity.enums.AssetClassType;
 
 @Entity
 public class AssetClassAllocationRule {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
     private Long investorId;
-
-    @Enumerated(EnumType.STRING)
     private AssetClassType assetClass;
-
-    private double targetPercentage;
-
+    private Double targetPercentage;
     private Boolean active;
 
-    // -------- GETTERS --------
+    public AssetClassAllocationRule(Long investorId, AssetClassType assetClass,
+                                    Double targetPercentage, Boolean active) {
+        this.investorId = investorId;
+        this.assetClass = assetClass;
+        this.targetPercentage = targetPercentage;
+        this.active = active;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getInvestorId() {
         return investorId;
     }
 
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public double getTargetPercentage() {
-        return targetPercentage;
-    }
-
-    /**
-     * Changed to isActive() to resolve the "cannot find symbol" error 
-     * in AllocationRuleServiceImpl.
-     */
-    public Boolean isActive() {
-        return active;
-    }
-
-    // -------- SETTERS --------
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setInvestorId(Long investorId) {
         this.investorId = investorId;
     }
 
-    public void setAssetClass(AssetClassType assetClass) {
+    public AssetClassType getAssetClassType() {
+        return assetClass;
+    }
+
+    public void setAssestClass(AssetClassType assetClass) {
         this.assetClass = assetClass;
     }
 
-    public void setTargetPercentage(double targetPercentage) {
+    public Double getTargetPercentage() {
+        return targetPercentage;
+    }
+
+    public void setTargetPercentage(Double targetPercentage) {
         this.targetPercentage = targetPercentage;
+    }
+
+    public Boolean isActive() {
+        return active;
     }
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Object getAssetClass() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
