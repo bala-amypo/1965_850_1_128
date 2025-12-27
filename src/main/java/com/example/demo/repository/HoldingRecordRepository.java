@@ -1,26 +1,21 @@
-package sbs.rosedev.springFirst.repository;
+package com.example.demo.repository;
 
-import java.util.List;
-
+import com.example.demo.entity.HoldingRecord;
+import com.example.demo.entity.enums.AssetClassType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-import sbs.rosedev.springFirst.entity.HoldingRecord;
-import sbs.rosedev.springFirst.entity.enums.AssetClassType;
+import java.util.List;
 
+@Repository
 public interface HoldingRecordRepository extends JpaRepository<HoldingRecord, Long> {
     List<HoldingRecord> findByInvestorId(Long investorId);
 
-    // List<HoldingRecord> findByCurrentValueGreaterThan(Double value);
-    // List<HoldingRecord> findByInvestorIdAndAssetClass(Long investorId,
-    // AssetClassType assetClass);
-    @Query("SELECT h FROM HoldingRecord h WHERE h.currentValue > :value")
-    List<HoldingRecord> findByValueGreaterThan(@Param("value") Double value);
+    @Query("SELECT h FROM HoldingRecord h WHERE h.currentValue > :minVal")
+    List<HoldingRecord> findByValueGreaterThan(@Param("minVal") Double minVal);
 
     @Query("SELECT h FROM HoldingRecord h WHERE h.investorId = :investorId AND h.assetClass = :assetClass")
-    List<HoldingRecord> findByInvestorAndAssetClass(
-        @Param("investorId") Long investorId,
-        @Param("assetClass") AssetClassType assetClass
-    );
+    List<HoldingRecord> findByInvestorAndAssetClass(@Param("investorId") Long investorId, @Param("assetClass") AssetClassType assetClass);
 }
