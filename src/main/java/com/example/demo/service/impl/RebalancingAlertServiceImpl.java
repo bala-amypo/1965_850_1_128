@@ -1,39 +1,37 @@
-package sbs.rosedev.springFirst.service.impl;
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.RebalancingAlertRecord;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.RebalancingAlertRecordRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-import sbs.rosedev.springFirst.entity.RebalancingAlertRecord;
-import sbs.rosedev.springFirst.exception.ResourceNotFoundException;
-import sbs.rosedev.springFirst.repository.RebalancingAlertRecordRepository;
-import sbs.rosedev.springFirst.service.RebalancingAlertService;
-
 @Service
-public class RebalancingAlertServiceImpl implements RebalancingAlertService {
-    private final RebalancingAlertRecordRepository repo;
+public class RebalancingAlertServiceImpl implements com.example.demo.service.RebalancingAlertService {
 
-    public RebalancingAlertServiceImpl(RebalancingAlertRecordRepository repo) {
-        this.repo = repo;
+    private final RebalancingAlertRecordRepository alertRecordRepository;
+
+    public RebalancingAlertServiceImpl(RebalancingAlertRecordRepository alertRecordRepository) {
+        this.alertRecordRepository = alertRecordRepository;
     }
 
-    @Override
     public RebalancingAlertRecord createAlert(RebalancingAlertRecord alert) {
-        if (alert.getCurrentPercentage() <= alert.getTargetPercentage())
-            throw new IllegalArgumentException("currentPercentage > targetPercentage");
-        return repo.save(alert);
+        // Enforce constraint from Test 33
+        if (alert.getCurrentPercentage() < alert.getTargetPercentage()) {
+            throw new IllegalArgumentException("currentPercentage > targetPercentage required for alert");
+        }
+        return alertRecordRepository.save(alert);
     }
-    
-    @Override
+
     public RebalancingAlertRecord resolveAlert(Long id) {
-        RebalancingAlertRecord alert = repo.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Alert not found: " + id));
+        RebalancingAlertRecord alert = alertRecordRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Alert not found with id: " + id));
         alert.setResolved(true);
-        return repo.save(alert);
+        return alertRecordRepository.save(alert);
     }
-    
-    @Override
+
     public List<RebalancingAlertRecord> getAlertsByInvestor(Long investorId) {
-        return repo.findByInvestorId(investorId);
+        return alertRecordRepository.findByInvestorId(investorId);
     }
 }

@@ -1,37 +1,35 @@
-package sbs.rosedev.springFirst.security;
+package com.example.demo.security;
 
+import com.example.demo.entity.UserAccount;
+import com.example.demo.repository.UserAccountRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import sbs.rosedev.springFirst.entity.UserAccount;
-import sbs.rosedev.springFirst.repository.UserAccountRepository;
-
+import java.util.Collections;
 
 @Service
-public class CustomUserDetailsService
-        implements UserDetailsService {
+@org.springframework.context.annotation.Primary
+public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserAccountRepository repo;
+    private final UserAccountRepository userAccountRepository;
 
-    public CustomUserDetailsService(UserAccountRepository repo) {
-        this.repo = repo;
+    public CustomUserDetailsService(UserAccountRepository userAccountRepository) {
+        this.userAccountRepository = userAccountRepository;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserAccount user = userAccountRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        UserAccount user = repo.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found"));
-
-        return User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRole().name())
-                .build();
+        return new User(
+                user.getUsername(),
+                user.getPassword(),
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+        );
     }
 }

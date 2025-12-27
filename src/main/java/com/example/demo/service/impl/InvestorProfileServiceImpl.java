@@ -1,48 +1,42 @@
-package sbs.rosedev.springFirst.service.impl;
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.InvestorProfile;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.InvestorProfileRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
-import sbs.rosedev.springFirst.entity.InvestorProfile;
-import sbs.rosedev.springFirst.exception.ResourceNotFoundException;
-import sbs.rosedev.springFirst.repository.InvestorProfileRepository;
-import sbs.rosedev.springFirst.service.InvestorProfileService;
-
 @Service
-public class InvestorProfileServiceImpl implements InvestorProfileService {
-    private final InvestorProfileRepository repo;
+public class InvestorProfileServiceImpl implements com.example.demo.service.InvestorProfileService {
 
-    public InvestorProfileServiceImpl(InvestorProfileRepository repo) {
-        this.repo = repo;
+    private final InvestorProfileRepository investorProfileRepository;
+
+    public InvestorProfileServiceImpl(InvestorProfileRepository investorProfileRepository) {
+        this.investorProfileRepository = investorProfileRepository;
     }
 
-    @Override
-    public InvestorProfile createInvestor(InvestorProfile p) {
-        return repo.save(p);
+    public InvestorProfile createInvestor(InvestorProfile investor) {
+        return investorProfileRepository.save(investor);
     }
-    
-    @Override
+
     public InvestorProfile getInvestorById(Long id) {
-        return repo.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Investor not found: " + id));
+        return investorProfileRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Investor not found with id: " + id));
     }
-    
-    @Override
+
     public List<InvestorProfile> getAllInvestors() {
-        return repo.findAll();
+        return investorProfileRepository.findAll();
     }
-    
-    @Override
-    public InvestorProfile updateInvestorStatus(Long id, Boolean active) {
-        InvestorProfile p = getInvestorById(id);
-        p.setActive(active);
-        return repo.save(p);
+
+    public InvestorProfile updateInvestorStatus(Long id, Boolean status) {
+        InvestorProfile investor = getInvestorById(id);
+        investor.setActive(status);
+        return investorProfileRepository.save(investor);
     }
-    
-    @Override
+
     public Optional<InvestorProfile> findByInvestorId(String investorId) {
-        return repo.findByInvestorId(investorId);
+        return investorProfileRepository.findByInvestorId(investorId);
     }
 }

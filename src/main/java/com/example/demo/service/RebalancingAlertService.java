@@ -1,19 +1,10 @@
-package sbs.rosedev.springFirst.service;
+package com.example.demo.service;
 
+import com.example.demo.entity.RebalancingAlertRecord;
 import java.util.List;
-import java.util.Optional;
 
-import sbs.rosedev.springFirst.entity.InvestorProfile;
-
-public interface InvestorProfileService {
-
-    InvestorProfile createInvestor(InvestorProfile investor);
-
-    InvestorProfile getInvestorById(Long id);
-
-    List<InvestorProfile> getAllInvestors();
-
-    InvestorProfile updateInvestorStatus(Long id, Boolean active);
-
-    Optional<InvestorProfile> findByInvestorId(String investorId);
+public interface RebalancingAlertService {
+    RebalancingAlertRecord createAlert(RebalancingAlertRecord alert);
+    RebalancingAlertRecord resolveAlert(Long id);
+    List<RebalancingAlertRecord> getAlertsByInvestor(Long investorId);
 }
