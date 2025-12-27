@@ -22,10 +22,8 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
 
-    public AuthController(AuthenticationManager authenticationManager,
-                          UserAccountRepository userAccountRepository,
-                          PasswordEncoder passwordEncoder,
-                          JwtTokenProvider tokenProvider) {
+    public AuthController(AuthenticationManager authenticationManager, UserAccountRepository userAccountRepository,
+                          PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userAccountRepository = userAccountRepository;
         this.passwordEncoder = passwordEncoder;
@@ -35,22 +33,17 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
-
-        UserAccount user = userAccountRepository
-                .findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+        
+        // Fetch user object to pass to generateToken
+        UserAccount user = userAccountRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = tokenProvider.generateToken(authentication, user);
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         if (userAccountRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username is already taken!");
         }
