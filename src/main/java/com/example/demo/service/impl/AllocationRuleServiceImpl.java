@@ -17,24 +17,32 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
     }
 
     @Override
-    public AssetClassAllocationRule getRuleById(Long id) {
-        return allocationRuleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rule not found"));
+    public AssetClassAllocationRule createRule(AssetClassAllocationRule rule) {
+        return allocationRuleRepository.save(rule);
     }
 
     @Override
     public AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule updatedRule) {
-        AssetClassAllocationRule rule = getRuleById(id);
+        AssetClassAllocationRule rule =
+                allocationRuleRepository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("Rule not found"));
 
-        rule.setTargetPercentage(updatedRule.getTargetPercentage());
         rule.setAssetClass(updatedRule.getAssetClass());
-        rule.setActive(updatedRule.getActive());
+        rule.setTargetPercentage(updatedRule.getTargetPercentage());
+        rule.setActive(updatedRule.isActive());
 
         return allocationRuleRepository.save(rule);
     }
 
     @Override
-    public List<AssetClassAllocationRule> getRulesByInvestor(Long investorId) {
-        return allocationRuleRepository.findByInvestorId(investorId);
+    public AssetClassAllocationRule getRuleById(Long id) {
+        return allocationRuleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rule not found"));
+    }
+
+    // ✅ REQUIRED METHOD (FIXES ABSTRACT METHOD ERROR)
+    @Override
+    public List<AssetClassAllocationRule> getActiveRules(Long investorId) {
+        return allocationRuleRepository.findByInvestorIdAndActiveTrue(investorId);
     }
 }
