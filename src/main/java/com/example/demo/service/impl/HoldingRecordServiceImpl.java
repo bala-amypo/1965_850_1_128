@@ -18,7 +18,8 @@ public class HoldingRecordServiceImpl implements HoldingRecordService {
 
     @Override
     public HoldingRecord recordHolding(HoldingRecord holding) {
-        if (holding.getCurrentValue() == 0 ){
+        // Updated check to include negative values
+        if (holding.getCurrentValue() <= 0) {
             throw new IllegalArgumentException("Holding value must be > 0");
         }
         return holdingRecordRepository.save(holding);
