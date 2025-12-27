@@ -1,32 +1,34 @@
-package com.example.demo.controller;
+// package sbs.rosedev.springFirst.controller;
 
-import com.example.demo.config.JwtTokenProvider;
-import org.springframework.security.authentication.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/auth")
-public class AuthController {
+// import sbs.rosedev.springFirst.dto.AuthRequest;
+// import sbs.rosedev.springFirst.dto.AuthResponse;
+// import sbs.rosedev.springFirst.entity.UserAccount;
+// import sbs.rosedev.springFirst.services.AuthService;
 
-    private final AuthenticationManager authManager;
-    private final JwtTokenProvider jwtProvider;
+// @RestController
+// @RequestMapping("/auth")
+// public class AuthController {
 
-    public AuthController(AuthenticationManager authManager,
-                          JwtTokenProvider jwtProvider,
-                          PasswordEncoder encoder) {
-        this.authManager = authManager;
-        this.jwtProvider = jwtProvider;
-    }
+//     private final AuthService authService;
 
-    @PostMapping("/login")
-    public String login(@RequestParam String username,
-                        @RequestParam String password) {
+//     public AuthController(AuthService authService) {
+//         this.authService = authService;
+//     }
 
-        Authentication auth = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
+//     @PostMapping("/register")
+//     public UserAccount register(
+//             @RequestBody UserAccount user) {
+//         return authService.register(user);
+//     }
 
-        return jwtProvider.generateToken(auth);
-    }
-}
+//     @PostMapping("/login")
+//     public AuthResponse login(
+//             @RequestBody AuthRequest request) {
+//         return authService.login(request);
+//     }
+// }
